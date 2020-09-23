@@ -12,14 +12,14 @@ logging.basicConfig(filename='bot.log', level=logging.INFO)
 def greet_user(update, context):
      context.user_data['emoji'] = get_smile(context.user_data)
      print('вызван/start')
-     update.message.reply_text(f'Привет, пользователь{context.user_data}!') 
+     update.message.reply_text(f"Здравствуй, пользователь {context.user_data['emoji']}!") 
 
 def talk_to_me(update, context):
     context.user_data['emoji'] = get_smile(context.user_data)
     user_text = update.message.text 
     print(user_text)
     print(update)
-    update.message.reply_text(f'{user_text} {context.user_data}')
+    update.message.reply_text(f"{user_text} {context.user_data['emoji']}")
 
 def get_smile(user_data):
      if 'emoji' not in user_data:
