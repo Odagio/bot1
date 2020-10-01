@@ -1,4 +1,6 @@
+from clarifai.rest import ClarifaiApp
 from emoji import emojize
+# from pprint import PrettyPrinter
 from random import choice, randint
 from telegram import ReplyKeyboardMarkup, KeyboardButton
 
@@ -22,3 +24,19 @@ def play_random_numbers(user_number):
      else:
           message = f'ваше число {user_number} , мое {bot_number}, вы проиграли'
      return message
+
+def is_cat(file_name):
+     app = ClarifaiApp(api_key=settings.CLARIFAI_API_KEY)
+     model = app.public_models.general_model
+     responce = model.predict_by_filename(file_name, max_concepts=5)
+     if responce['status']['code'] ==10000:
+          for concept in responce['outputs'][0]['data']['concepts']:
+               if concept['name'] == 'cat':
+                    return True
+          return False
+
+          
+if __name__ == "__main__":
+     print(is_cat("images/cat1.jpg"))
+     print(is_cat("images/notcat.jpg"))
+          
