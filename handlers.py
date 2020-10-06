@@ -3,23 +3,26 @@ import os
 from random import choice
 
 from db import db, get_or_create_user
-from utils import  is_cat, main_keyboard, play_random_numbers
+from utils import is_cat, main_keyboard, play_random_numbers
+
 
 def greet_user(update, context):
-     print('вызван/start')
-     user = get_or_create_user(db, update.effective_user,update.message.chat.id)
-     update.message.reply_text(
+    print('вызван/start')
+    user = get_or_create_user(db, update.effective_user,
+                              update.message.chat.id)
+    update.message.reply_text(
           f"Здравствуй, пользователь {user['emoji']}!",
           reply_markup=main_keyboard()
-          ) 
+          )
 
 
 def guess_number(update, context):
-     user = get_or_create_user(db, update.effective_user,update.message.chat.id)
-     if context.args:
-          try:
-               user_number = int(context.args[0])
-               message = play_random_numbers (user_number)
+    user = get_or_create_user(db, update.effective_user,
+                              update.message.chat.id)
+    if context.args:
+        try:
+            user_number = int(context.args[0])
+            message = play_random_numbers(user_number)
           except (TypeError,ValueError):
                message = "введите целое число"
      else:

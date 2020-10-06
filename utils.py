@@ -13,7 +13,9 @@ import settings
 #      return user_data['emoji']
 
 def main_keyboard():
-     return ReplyKeyboardMarkup([['Прислать котика', KeyboardButton('прислать координаты',request_location = True)]])
+     return ReplyKeyboardMarkup([
+          ['Прислать котика', KeyboardButton('прислать координаты',request_location = True),'заполнить анкету']
+          ], one_time_keyboard = True)
 
 def play_random_numbers(user_number):
      bot_number = randint(user_number -10, user_number + 10)
@@ -24,6 +26,7 @@ def play_random_numbers(user_number):
      else:
           message = f'ваше число {user_number} , мое {bot_number}, вы проиграли'
      return message
+
 
 def is_cat(file_name):
      app = ClarifaiApp(api_key=settings.CLARIFAI_API_KEY)
